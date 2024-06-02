@@ -1,45 +1,51 @@
-﻿using Ecommerce.Data;
+﻿using Ecommerce.DataAccess.Data;
+using Ecommerce.DataAccess.Repository.IRepository;
 using Ecommerce.Models;
 
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ecommerce.Controllers
+namespace Ecommerce.Areas.Admin.Controllers
 
 {
-	public class CategoryController : Controller
-	{
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+    [Area("Admin")]
+    public class CategoryController : Controller
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork db)
         {
-            _db = db;
-            
+            _unitOfWork = db;
+
         }
-        public IActionResult Index() {
-            List<Category> objCategoryList = _db.Categories.ToList();
+        public IActionResult Index()
+        {
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
-        public IActionResult Create() {
+        public IActionResult Create()
+        {
             return View();
         }
         [HttpPost]
         public IActionResult Create(Category obj)
         {
-            if (ModelState.IsValid) {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Created";
                 return RedirectToAction("Index");
             }
-            return View(); 
+            return View();
 
         }
 
         public IActionResult Edit(int categoryId)
-        {   
-            if (categoryId == null || categoryId == 0) {
+        {
+            if (categoryId == null || categoryId == 0)
+            {
                 return NotFound();
             }
-            Category categoryFromDb = _db.Categories.Find(categoryId);
+            Category categoryFromDb = _unitOfWork.Category.Get(u => u.CategoryId == categoryId);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -51,8 +57,8 @@ namespace Ecommerce.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _unitOfWork.Category.Update(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Edited";
                 return RedirectToAction("Index");
             }
@@ -65,7 +71,7 @@ namespace Ecommerce.Controllers
             {
                 return NotFound();
             }
-            Category categoryFromDb = _db.Categories.Find(categoryId);
+            Category categoryFromDb = _unitOfWork.Category.Get(u => u.CategoryId == categoryId);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -75,13 +81,13 @@ namespace Ecommerce.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? categoryId)
         {
-            Category obj = _db.Categories.Find(categoryId);
+            Category obj = _unitOfWork.Category.Get(u => u.CategoryId == categoryId);
             if (obj == null)
             {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
+            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.Save();
 
             TempData["success"] = "Category Deleted";
             return RedirectToAction("Index");
