@@ -1,0 +1,103 @@
+﻿@model ProductVM
+
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Product.Id" />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">@(Model.Product.Id!=0?"Update":"Create") Product </h2>
+            <hr />
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <div asp-validation-summary="All"></div>
+                <div class="mb-3 row">
+                    <label asp-for="Product.Title"></label>
+                    <input asp-for="Product.Title" type="text" class="form-control" />
+
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="Product.Description"></label>
+                    <input asp-for="Product.Description" type="text" class="form-control" />
+
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="Product.ISBN"></label>
+                    <input asp-for="Product.ISBN" type="text" class="form-control" />
+
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="Product.Author"></label>
+                    <input asp-for="Product.Author" type="text" class="form-control" />
+
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="Product.ListPrice"></label>
+                    <input asp-for="Product.ListPrice" type="text" class="form-control" />
+
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="Product.Price"></label>
+                    <input asp-for="Product.Price" type="text" class="form-control" />
+
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="Product.Price50"></label>
+                    <input asp-for="Product.Price50" type="text" class="form-control" />
+
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="Product.Price100"></label>
+                    <input asp-for="Product.Price100" type="text" class="form-control" />
+                </div>
+
+                <div class="form-floating mb-3 row">
+                    <label asp-for="Product.ImageUrl"></label>
+                    <input type="file" name="file" class="form-control" />
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="@Model.Product.CategoryId"></label>
+                    <select asp-for="@Model.Product.CategoryId" asp-items="@Model.CategoryList" type="text" class="form-control"><option disabled selected>--Select Category--</option></select>
+
+                </div>
+
+            </div>
+            <div class="col-2">
+                <img src="@Model.Product.ImageUrl" width="100%" style="border-radius:5px; border:1px solid"
+
+            </div>
+        </div>
+
+        
+        
+        <div class="row">
+            <div class="col-6 col-md-3">
+                @if (Model.Product.Id != 0)
+                {
+                    <button type="submit" class="btn btn-success form-control" >Update</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-primary form-control" >Create</button>
+                }
+                
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Product" asp-action="Index" class="btn btn-secondary form-control">
+                    Back to List
+                </a>
+            </div>
+
+        </div>
+
+        
+        
+    </div>
+</form>
+
+@section Scripts {
+    @{
+    <partial name="_ValidationScriptsPartial"></partial>
+    }
+
+}
