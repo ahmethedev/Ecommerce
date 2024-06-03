@@ -42,7 +42,7 @@ namespace Ecommerce.Models
         [Required]
         [DisplayName("Price for 100+")]
         [Range(1, 1000)]
-        public decimal Price100 { get; set; }
+        public int Price100 { get; set; }
 
 
         public int CategoryId { get; set; }
@@ -51,5 +51,13 @@ namespace Ecommerce.Models
         public Category Category { get; set; }
         [ValidateNever]
         public string ImageUrl { get; set; }
+
+        [Required]
+        [DisplayName("Stock")]
+        [Range(1, 1000)]
+        public int Stock { get; set; }
+
+        [DisplayName("Release Date")]
+        public DateTime ReleaseDate { get; set; }
     }
 }

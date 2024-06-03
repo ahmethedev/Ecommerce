@@ -36,7 +36,9 @@ namespace Ecommerce.DataAccess.Data
                     Price50 = 85,
                     Price100 = 80,
                     CategoryId = 3,
-                    ImageUrl=""
+                    ImageUrl="",
+                    Stock = 100,
+                    ReleaseDate = DateTime.Now
                 },
                 new Product
                 {
@@ -50,7 +52,9 @@ namespace Ecommerce.DataAccess.Data
                     Price50 = 25,
                     Price100 = 20,
                     CategoryId = 2,
-                    ImageUrl = ""
+                    ImageUrl = "",
+                    Stock = 100,
+                    ReleaseDate = DateTime.Now
                 },
                 new Product
                 {
@@ -64,7 +68,9 @@ namespace Ecommerce.DataAccess.Data
                     Price50 = 40,
                     Price100 = 35,
                     CategoryId = 3,
-                    ImageUrl = ""
+                    ImageUrl = "",
+                    Stock = 100,
+                    ReleaseDate = DateTime.Now
                 },
                 new Product
                 {
@@ -78,7 +84,9 @@ namespace Ecommerce.DataAccess.Data
                     Price50 = 60,
                     Price100 = 55,
                     CategoryId = 3,
-                    ImageUrl = ""
+                    ImageUrl = "",
+                    Stock = 100,
+                    ReleaseDate = DateTime.Now
                 },
                 new Product
                 {
@@ -92,7 +100,9 @@ namespace Ecommerce.DataAccess.Data
                     Price50 = 25,
                     Price100 = 20,
                     CategoryId = 2,
-                    ImageUrl = ""
+                    ImageUrl = "",
+                    Stock = 100,
+                    ReleaseDate = DateTime.Now
                 },
                 new Product
                 {
@@ -106,7 +116,9 @@ namespace Ecommerce.DataAccess.Data
                     Price50 = 22,
                     Price100 = 20,
                     CategoryId = 2,
-                    ImageUrl = ""
+                    ImageUrl = "",
+                    Stock = 100,
+                    ReleaseDate = DateTime.Now
                 }
 
 

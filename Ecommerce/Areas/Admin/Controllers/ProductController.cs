@@ -62,14 +62,7 @@ namespace Ecommerce.Areas.Admin.Controllers
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(webRootPath, @"images\product");
-                    if(string.IsNullOrEmpty(productVM.Product.ImageUrl))
-                    {
-                        var oldImage = Path.Combine(webRootPath, productVM.Product.ImageUrl.TrimStart('\\'));
-                        if(System.IO.File.Exists(oldImage))
-                        {
-                            System.IO.File.Delete(oldImage);
-                        }
-                    }
+                  
              
 
                     using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
