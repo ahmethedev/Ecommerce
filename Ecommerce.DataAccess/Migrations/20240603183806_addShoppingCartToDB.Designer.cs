@@ -4,6 +4,7 @@ using Ecommerce.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240603183806_addShoppingCartToDB")]
+    partial class addShoppingCartToDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,6 +64,36 @@ namespace Ecommerce.DataAccess.Migrations
                             DisplayOrder = 3,
                             Name = "Book"
                         });
+                });
+
+            modelBuilder.Entity("Ecommerce.Models.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdentityUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdentityUserId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Ecommerce.Models.Product", b =>
@@ -131,7 +164,7 @@ namespace Ecommerce.DataAccess.Migrations
                             Price = 90m,
                             Price100 = 80,
                             Price50 = 85m,
-                            ReleaseDate = new DateTime(2024, 6, 4, 19, 53, 40, 647, DateTimeKind.Local).AddTicks(1377),
+                            ReleaseDate = new DateTime(2024, 6, 3, 21, 38, 5, 937, DateTimeKind.Local).AddTicks(2500),
                             Stock = 100,
                             Title = "Fortune of Time"
                         },
@@ -147,7 +180,7 @@ namespace Ecommerce.DataAccess.Migrations
                             Price = 30m,
                             Price100 = 20,
                             Price50 = 25m,
-                            ReleaseDate = new DateTime(2024, 6, 4, 19, 53, 40, 647, DateTimeKind.Local).AddTicks(1403),
+                            ReleaseDate = new DateTime(2024, 6, 3, 21, 38, 5, 937, DateTimeKind.Local).AddTicks(2531),
                             Stock = 100,
                             Title = "Dark Skies"
                         },
@@ -163,7 +196,7 @@ namespace Ecommerce.DataAccess.Migrations
                             Price = 50m,
                             Price100 = 35,
                             Price50 = 40m,
-                            ReleaseDate = new DateTime(2024, 6, 4, 19, 53, 40, 647, DateTimeKind.Local).AddTicks(1409),
+                            ReleaseDate = new DateTime(2024, 6, 3, 21, 38, 5, 937, DateTimeKind.Local).AddTicks(2536),
                             Stock = 100,
                             Title = "Vanish in the Sunset"
                         },
@@ -179,7 +212,7 @@ namespace Ecommerce.DataAccess.Migrations
                             Price = 65m,
                             Price100 = 55,
                             Price50 = 60m,
-                            ReleaseDate = new DateTime(2024, 6, 4, 19, 53, 40, 647, DateTimeKind.Local).AddTicks(1414),
+                            ReleaseDate = new DateTime(2024, 6, 3, 21, 38, 5, 937, DateTimeKind.Local).AddTicks(2541),
                             Stock = 100,
                             Title = "Cotton Candy"
                         },
@@ -195,7 +228,7 @@ namespace Ecommerce.DataAccess.Migrations
                             Price = 27m,
                             Price100 = 20,
                             Price50 = 25m,
-                            ReleaseDate = new DateTime(2024, 6, 4, 19, 53, 40, 647, DateTimeKind.Local).AddTicks(1419),
+                            ReleaseDate = new DateTime(2024, 6, 3, 21, 38, 5, 937, DateTimeKind.Local).AddTicks(2546),
                             Stock = 100,
                             Title = "Rock in the Ocean"
                         },
@@ -211,7 +244,7 @@ namespace Ecommerce.DataAccess.Migrations
                             Price = 23m,
                             Price100 = 20,
                             Price50 = 22m,
-                            ReleaseDate = new DateTime(2024, 6, 4, 19, 53, 40, 647, DateTimeKind.Local).AddTicks(1424),
+                            ReleaseDate = new DateTime(2024, 6, 3, 21, 38, 5, 937, DateTimeKind.Local).AddTicks(2550),
                             Stock = 100,
                             Title = "Leaves and Wonders"
                         });
@@ -281,10 +314,6 @@ namespace Ecommerce.DataAccess.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -336,10 +365,6 @@ namespace Ecommerce.DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -370,12 +395,10 @@ namespace Ecommerce.DataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -412,12 +435,10 @@ namespace Ecommerce.DataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -427,27 +448,21 @@ namespace Ecommerce.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Ecommerce.Models.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Ecommerce.Models.Models.ShoppingCart", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasOne("Ecommerce.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Navigation("ApplicationUser");
 
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Ecommerce.Models.Product", b =>
