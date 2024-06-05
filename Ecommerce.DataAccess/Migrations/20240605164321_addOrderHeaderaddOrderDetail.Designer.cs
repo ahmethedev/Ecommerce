@@ -4,6 +4,7 @@ using Ecommerce.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240605164321_addOrderHeaderaddOrderDetail")]
+    partial class addOrderHeaderaddOrderDetail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,8 +115,8 @@ namespace Ecommerce.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("OrderTotal")
-                        .HasColumnType("float");
+                    b.Property<decimal>("OrderTotal")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -236,7 +239,7 @@ namespace Ecommerce.DataAccess.Migrations
                             Price = 90m,
                             Price100 = 80,
                             Price50 = 85m,
-                            ReleaseDate = new DateTime(2024, 6, 5, 20, 1, 50, 371, DateTimeKind.Local).AddTicks(6015),
+                            ReleaseDate = new DateTime(2024, 6, 5, 19, 43, 20, 708, DateTimeKind.Local).AddTicks(1316),
                             Stock = 100,
                             Title = "Fortune of Time"
                         },
@@ -252,7 +255,7 @@ namespace Ecommerce.DataAccess.Migrations
                             Price = 30m,
                             Price100 = 20,
                             Price50 = 25m,
-                            ReleaseDate = new DateTime(2024, 6, 5, 20, 1, 50, 371, DateTimeKind.Local).AddTicks(6042),
+                            ReleaseDate = new DateTime(2024, 6, 5, 19, 43, 20, 708, DateTimeKind.Local).AddTicks(1342),
                             Stock = 100,
                             Title = "Dark Skies"
                         },
@@ -268,7 +271,7 @@ namespace Ecommerce.DataAccess.Migrations
                             Price = 50m,
                             Price100 = 35,
                             Price50 = 40m,
-                            ReleaseDate = new DateTime(2024, 6, 5, 20, 1, 50, 371, DateTimeKind.Local).AddTicks(6049),
+                            ReleaseDate = new DateTime(2024, 6, 5, 19, 43, 20, 708, DateTimeKind.Local).AddTicks(1347),
                             Stock = 100,
                             Title = "Vanish in the Sunset"
                         },
@@ -284,7 +287,7 @@ namespace Ecommerce.DataAccess.Migrations
                             Price = 65m,
                             Price100 = 55,
                             Price50 = 60m,
-                            ReleaseDate = new DateTime(2024, 6, 5, 20, 1, 50, 371, DateTimeKind.Local).AddTicks(6054),
+                            ReleaseDate = new DateTime(2024, 6, 5, 19, 43, 20, 708, DateTimeKind.Local).AddTicks(1352),
                             Stock = 100,
                             Title = "Cotton Candy"
                         },
@@ -300,7 +303,7 @@ namespace Ecommerce.DataAccess.Migrations
                             Price = 27m,
                             Price100 = 20,
                             Price50 = 25m,
-                            ReleaseDate = new DateTime(2024, 6, 5, 20, 1, 50, 371, DateTimeKind.Local).AddTicks(6058),
+                            ReleaseDate = new DateTime(2024, 6, 5, 19, 43, 20, 708, DateTimeKind.Local).AddTicks(1357),
                             Stock = 100,
                             Title = "Rock in the Ocean"
                         },
@@ -316,7 +319,7 @@ namespace Ecommerce.DataAccess.Migrations
                             Price = 23m,
                             Price100 = 20,
                             Price50 = 22m,
-                            ReleaseDate = new DateTime(2024, 6, 5, 20, 1, 50, 371, DateTimeKind.Local).AddTicks(6063),
+                            ReleaseDate = new DateTime(2024, 6, 5, 19, 43, 20, 708, DateTimeKind.Local).AddTicks(1362),
                             Stock = 100,
                             Title = "Leaves and Wonders"
                         });
